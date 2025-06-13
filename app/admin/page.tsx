@@ -90,7 +90,7 @@ export default function AdminDashboard() {
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
                 <svg
-                  className="h-8 w-8 text-indigo-600"
+                  className="h-6 w-6 text-indigo-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -103,16 +103,16 @@ export default function AdminDashboard() {
                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                   />
                 </svg>
-                <span className="ml-2 text-xl font-semibold text-gray-900">Blog Admin</span>
+                <span className="ml-2 text-lg font-semibold text-gray-900">Blog Admin</span>
               </div>
             </div>
             <div className="flex items-center space-x-4">
               <Link
                 href="/admin/posts/new"
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+                className="inline-flex items-center px-3 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
               >
                 <svg
-                  className="-ml-1 mr-2 h-5 w-5"
+                  className="-ml-0.5 mr-1.5 h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -127,10 +127,10 @@ export default function AdminDashboard() {
               </Link>
               <Link
                 href="/"
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+                className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
               >
                 <svg
-                  className="-ml-1 mr-2 h-5 w-5 text-gray-500"
+                  className="-ml-0.5 mr-1.5 h-4 w-4 text-gray-500"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -160,7 +160,7 @@ export default function AdminDashboard() {
             {posts.length === 0 ? (
               <div className="px-6 py-12 text-center">
                 <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
+                  className="mx-auto h-8 w-8 text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -211,7 +211,7 @@ export default function AdminDashboard() {
                         <div className="mt-1 flex items-center text-sm text-gray-500 space-x-4">
                           <span className="flex items-center">
                             <svg
-                              className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                              className="flex-shrink-0 mr-1.5 h-4 w-4 text-gray-400"
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 20 20"
                               fill="currentColor"
@@ -226,7 +226,7 @@ export default function AdminDashboard() {
                           </span>
                           <span className="flex items-center">
                             <svg
-                              className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                              className="flex-shrink-0 mr-1.5 h-4 w-4 text-gray-400"
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 20 20"
                               fill="currentColor"
@@ -256,7 +256,7 @@ export default function AdminDashboard() {
                           className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
                         >
                           <svg
-                            className="-ml-1 mr-1.5 h-4 w-4 text-gray-500"
+                            className="-ml-0.5 mr-1.5 h-4 w-4 text-gray-500"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
                             fill="currentColor"
@@ -270,7 +270,7 @@ export default function AdminDashboard() {
                           className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
                         >
                           <svg
-                            className="-ml-1 mr-1.5 h-4 w-4 text-gray-500"
+                            className="-ml-0.5 mr-1.5 h-4 w-4 text-gray-500"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
                             fill="currentColor"
