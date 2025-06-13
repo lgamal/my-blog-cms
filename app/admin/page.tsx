@@ -13,7 +13,6 @@ const formatDate = (dateString: string) => {
     day: 'numeric' 
   })
 }
-import { Plus, Home, Edit3, Eye, Calendar, User, FileText, Search, Bell, Settings } from "lucide-react"
 
 interface Post {
   id: string
