@@ -58,27 +58,7 @@ export default function NewPost() {
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-end space-x-4">
-            <button
-              type="button"
-              onClick={() => router.back()}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
-            >
-              {loading ? "Creating..." : "Create Post"}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  )
-}flex justify-between h-16">
+          <div className="flex justify-between h-16">
             <div className="flex items-center">
               <button
                 onClick={() => router.back()}
@@ -88,12 +68,29 @@ export default function NewPost() {
               </button>
               <h1 className="text-xl font-semibold">New Post</h1>
             </div>
+            <div className="flex items-center space-x-4">
+              <button
+                type="button"
+                onClick={() => router.back()}
+                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                form="post-form"
+                disabled={loading}
+                className="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+              >
+                {loading ? "Creating..." : "Create Post"}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
 
       <div className="max-w-4xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form id="post-form" onSubmit={handleSubmit} className="space-y-6">
           <div className="bg-white shadow rounded-lg p-6">
             <div className="space-y-4">
               <div>
@@ -172,5 +169,8 @@ export default function NewPost() {
               </div>
             </div>
           </div>
-
-          <div className="
+        </form>
+      </div>
+    </div>
+  )
+}
