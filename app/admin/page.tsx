@@ -84,7 +84,7 @@ export default function AdminDashboard() {
             <div className="flex items-center space-x-8">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <FileText className="w-4 h-4 text-white" />
+                  <FileText className="w-4 h-4 text-white" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
                 </div>
                 <span className="text-xl font-bold text-white">BlogAdmin</span>
               </div>
@@ -109,7 +109,7 @@ export default function AdminDashboard() {
             <div className="flex items-center space-x-4">
               <div className="hidden md:block">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
                   <input
                     type="text"
                     placeholder="Search posts..."
@@ -121,18 +121,18 @@ export default function AdminDashboard() {
               </div>
               
               <button className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <Bell className="w-5 h-5" />
+                <Bell className="w-5 h-5" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
               </button>
               
               <button className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
-                <Settings className="w-5 h-5" />
+                <Settings className="w-5 h-5" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
               </button>
 
               <Link
                 href="/admin/posts/new"
                 className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
-                <Plus className="w-4 h-4 mr-2" />
+                <Plus className="w-4 h-4 mr-2" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
                 New Post
               </Link>
 
@@ -140,7 +140,7 @@ export default function AdminDashboard() {
                 href="/"
                 className="inline-flex items-center px-4 py-2 bg-white/10 text-white font-medium rounded-lg hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-200 border border-white/20"
               >
-                <Home className="w-4 h-4 mr-2" />
+                <Home className="w-4 h-4 mr-2" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
                 View Site
               </Link>
             </div>
@@ -173,7 +173,7 @@ export default function AdminDashboard() {
           {filteredPosts.length === 0 ? (
             <div className="px-6 py-16 text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <FileText className="w-8 h-8 text-gray-400" />
+                <FileText className="w-8 h-8 text-gray-400" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">
                 {searchTerm ? "No posts found" : "No posts yet"}
@@ -189,7 +189,7 @@ export default function AdminDashboard() {
                   href="/admin/posts/new"
                   className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  <Plus className="w-4 h-4 mr-2" />
+                  <Plus className="w-4 h-4 mr-2" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
                   Create Your First Post
                 </Link>
               )}
@@ -212,11 +212,11 @@ export default function AdminDashboard() {
                       </h3>
                       <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
                         <span className="flex items-center">
-                          <User className="w-4 h-4 mr-1.5 text-gray-500" />
+                          <User className="w-4 h-4 mr-1.5 text-gray-500" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
                           {post.author.name}
                         </span>
                         <span className="flex items-center">
-                          <Calendar className="w-4 h-4 mr-1.5 text-gray-500" />
+                          <Calendar className="w-4 h-4 mr-1.5 text-gray-500" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
                           {format(new Date(post.createdAt), "MMM d, yyyy")}
                         </span>
                         <span
@@ -239,14 +239,14 @@ export default function AdminDashboard() {
                         href={`/admin/posts/${post.id}/edit`}
                         className="inline-flex items-center px-3 py-2 bg-white/10 text-white font-medium rounded-lg hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-200 border border-white/20 group/btn"
                       >
-                        <Edit3 className="w-4 h-4 mr-2 group-hover/btn:text-blue-300" />
+                        <Edit3 className="w-4 h-4 mr-2 group-hover/btn:text-blue-300" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
                         Edit
                       </Link>
                       <Link
                         href={`/blog/${post.slug}`}
                         className="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-500/20 to-purple-600/20 text-blue-200 font-medium rounded-lg hover:from-blue-500/30 hover:to-purple-600/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-200 border border-blue-500/30"
                       >
-                        <Eye className="w-4 h-4 mr-2" />
+                        <Eye className="w-4 h-4 mr-2" style={{ width: 16, height: 16, minWidth: 16, minHeight: 16, maxWidth: 16, maxHeight: 16 }} />
                         View
                       </Link>
                     </div>
