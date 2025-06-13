@@ -4,15 +4,8 @@ import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import Link from "next/link"
-// Simple date formatter
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'short', 
-    day: 'numeric' 
-  })
-}
+import { format } from "date-fns"
+import { Plus, Home, Edit3, Eye, Calendar, User, FileText, Search, Bell, Settings } from "lucide-react"
 
 interface Post {
   id: string
@@ -224,7 +217,7 @@ export default function AdminDashboard() {
                         </span>
                         <span className="flex items-center">
                           <Calendar className="w-4 h-4 mr-1.5 text-gray-500" />
-                          {formatDate(post.createdAt)}
+                          {format(new Date(post.createdAt), "MMM d, yyyy")}
                         </span>
                         <span
                           className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${
