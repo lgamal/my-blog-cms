@@ -4,7 +4,16 @@ import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { format } from "date-fns"
+// Simple date formatter
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  })
+}
+import { Plus, Home, Edit3, Eye, Calendar, User, FileText, Search, Bell, Settings } from "lucide-react"
 
 interface Post {
   id: string
@@ -22,6 +31,7 @@ export default function AdminDashboard() {
   const router = useRouter()
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState("")
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -47,31 +57,23 @@ export default function AdminDashboard() {
     }
   }
 
+  const filteredPosts = posts.filter(post =>
+    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    post.author.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   if (status === "loading" || loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="flex items-center space-x-2">
-          <svg
-            className="animate-spin h-5 w-5 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
-          </svg>
-          <span className="text-lg font-medium text-white">Loading...</span>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="relative">
+            <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+            <div className="absolute inset-0 w-12 h-12 border-4 border-transparent border-t-purple-500 rounded-full animate-spin animation-delay-75"></div>
+          </div>
+          <div className="text-center">
+            <h3 className="text-lg font-semibold text-white mb-1">Loading Dashboard</h3>
+            <p className="text-gray-400 text-sm">Please wait while we fetch your content...</p>
+          </div>
         </div>
       </div>
     )
@@ -82,61 +84,71 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Navigation */}
-      <nav className="bg-black shadow-sm border-b border-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
+      {/* Modern Navigation */}
+      <nav className="bg-white/10 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 flex items-center">
-                <svg
-                  className="h-5 w-5 text-indigo-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                  />
-                </svg>
-                <span className="ml-2 text-base font-semibold text-white">Blog Admin</span>
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <FileText className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-xl font-bold text-white">BlogAdmin</span>
+              </div>
+              
+              {/* Quick Stats */}
+              <div className="hidden md:flex items-center space-x-6">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white">{posts.length}</div>
+                  <div className="text-xs text-gray-400">Total Posts</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-400">{posts.filter(p => p.published).length}</div>
+                  <div className="text-xs text-gray-400">Published</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-yellow-400">{posts.filter(p => !p.published).length}</div>
+                  <div className="text-xs text-gray-400">Drafts</div>
+                </div>
               </div>
             </div>
+
             <div className="flex items-center space-x-4">
+              <div className="hidden md:block">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search posts..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
+                  />
+                </div>
+              </div>
+              
+              <button className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <Bell className="w-5 h-5" />
+              </button>
+              
+              <button className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <Settings className="w-5 h-5" />
+              </button>
+
               <Link
                 href="/admin/posts/new"
-                className="inline-flex items-center px-3 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+                className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
-                <svg
-                  className="-ml-0.5 mr-1.5 h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <Plus className="w-4 h-4 mr-2" />
                 New Post
               </Link>
+
               <Link
                 href="/"
-                className="inline-flex items-center px-3 py-1.5 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+                className="inline-flex items-center px-4 py-2 bg-white/10 text-white font-medium rounded-lg hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-200 border border-white/20"
               >
-                <svg
-                  className="-ml-0.5 mr-1.5 h-4 w-4 text-indigo-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                </svg>
+                <Home className="w-4 h-4 mr-2" />
                 View Site
               </Link>
             </div>
@@ -145,154 +157,131 @@ export default function AdminDashboard() {
       </nav>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <div className="bg-gray-900 shadow rounded-lg overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-800 bg-gray-900">
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg font-medium text-white">All Posts</h2>
-                <span className="px-3 py-1 text-sm font-medium text-gray-200 bg-gray-800 rounded-full">
-                  {posts.length} {posts.length === 1 ? "post" : "posts"}
+      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">Content Management</h1>
+          <p className="text-gray-400">Manage your blog posts and content from here.</p>
+        </div>
+
+        {/* Posts Container */}
+        <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+          <div className="px-6 py-4 border-b border-white/10 bg-gradient-to-r from-white/5 to-transparent">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-white">All Posts</h2>
+              <div className="flex items-center space-x-4">
+                <span className="px-3 py-1 text-sm font-medium text-blue-200 bg-blue-500/20 rounded-full border border-blue-500/30">
+                  {filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"}
+                  {searchTerm && " found"}
                 </span>
               </div>
             </div>
+          </div>
 
-            {posts.length === 0 ? (
-              <div className="px-6 py-12 text-center">
-                <svg
-                  className="mx-auto h-8 w-8 text-gray-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1}
-                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                  />
-                </svg>
-                <h3 className="mt-2 text-sm font-medium text-white">No posts</h3>
-                <p className="mt-1 text-sm text-gray-300">Get started by creating a new post.</p>
-                <div className="mt-6">
-                  <Link
-                    href="/admin/posts/new"
-                    className="inline-flex items-center px-3 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
-                  >
-                    <svg
-                      className="-ml-0.5 mr-1.5 h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    New Post
-                  </Link>
-                </div>
+          {filteredPosts.length === 0 ? (
+            <div className="px-6 py-16 text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FileText className="w-8 h-8 text-gray-400" />
               </div>
-            ) : (
-              <div className="divide-y divide-gray-800">
-                {posts.map((post) => (
-                  <div
-                    key={post.id}
-                    className="px-6 py-4 hover:bg-gray-800 transition duration-150 ease-in-out"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-medium text-white truncate">
-                          {post.title}
-                        </h3>
-                        <div className="mt-1 flex items-center text-sm text-gray-300 space-x-4">
-                          <span className="flex items-center">
-                            <svg
-                              className="flex-shrink-0 mr-1.5 h-4 w-4 text-gray-400"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                            {post.author.name}
-                          </span>
-                          <span className="flex items-center">
-                            <svg
-                              className="flex-shrink-0 mr-1.5 h-4 w-4 text-gray-400"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                            {format(new Date(post.createdAt), "MMM d, yyyy")}
-                          </span>
-                          <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                              post.published
-                                ? "bg-green-900 text-green-200"
-                                : "bg-yellow-900 text-yellow-200"
-                            }`}
-                          >
-                            {post.published ? "Published" : "Draft"}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <Link
-                          href={`/admin/posts/${post.id}/edit`}
-                          className="inline-flex items-center px-3 py-1.5 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+              <h3 className="text-lg font-semibold text-white mb-2">
+                {searchTerm ? "No posts found" : "No posts yet"}
+              </h3>
+              <p className="text-gray-400 mb-6 max-w-sm mx-auto">
+                {searchTerm 
+                  ? `No posts match "${searchTerm}". Try adjusting your search.`
+                  : "Get started by creating your first blog post."
+                }
+              </p>
+              {!searchTerm && (
+                <Link
+                  href="/admin/posts/new"
+                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 shadow-lg hover:shadow-xl"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Create Your First Post
+                </Link>
+              )}
+            </div>
+          ) : (
+            <div className="divide-y divide-white/10">
+              {filteredPosts.map((post, index) => (
+                <div
+                  key={post.id}
+                  className="px-6 py-6 hover:bg-white/5 transition-all duration-200 group"
+                  style={{
+                    animationDelay: `${index * 50}ms`,
+                    animation: 'fadeInUp 0.5s ease-out forwards'
+                  }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1 min-w-0 pr-6">
+                      <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">
+                        {post.title}
+                      </h3>
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+                        <span className="flex items-center">
+                          <User className="w-4 h-4 mr-1.5 text-gray-500" />
+                          {post.author.name}
+                        </span>
+                        <span className="flex items-center">
+                          <Calendar className="w-4 h-4 mr-1.5 text-gray-500" />
+                          {formatDate(post.createdAt)}
+                        </span>
+                        <span
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${
+                            post.published
+                              ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                              : "bg-yellow-500/20 text-yellow-300 border border-yellow-500/30"
+                          }`}
                         >
-                          <svg
-                            className="-ml-0.5 mr-1.5 h-4 w-4 text-indigo-400"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                          </svg>
-                          Edit
-                        </Link>
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          className="inline-flex items-center px-3 py-1.5 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
-                        >
-                          <svg
-                            className="-ml-0.5 mr-1.5 h-4 w-4 text-indigo-400"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                            <path
-                              fillRule="evenodd"
-                              d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                          View
-                        </Link>
+                          <div className={`w-2 h-2 rounded-full mr-2 ${
+                            post.published ? "bg-green-400" : "bg-yellow-400"
+                          }`}></div>
+                          {post.published ? "Published" : "Draft"}
+                        </span>
                       </div>
                     </div>
+                    
+                    <div className="flex items-center space-x-3">
+                      <Link
+                        href={`/admin/posts/${post.id}/edit`}
+                        className="inline-flex items-center px-3 py-2 bg-white/10 text-white font-medium rounded-lg hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-200 border border-white/20 group/btn"
+                      >
+                        <Edit3 className="w-4 h-4 mr-2 group-hover/btn:text-blue-300" />
+                        Edit
+                      </Link>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-500/20 to-purple-600/20 text-blue-200 font-medium rounded-lg hover:from-blue-500/30 hover:to-purple-600/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-200 border border-blue-500/30"
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        View
+                      </Link>
+                    </div>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </main>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animation-delay-75 {
+          animation-delay: 75ms;
+        }
+      `}</style>
     </div>
   )
 }
