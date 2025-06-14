@@ -45,7 +45,9 @@ export default function AdminLogin() {
             <div className="flex items-center space-x-3">
               <div className="bg-white p-2 rounded-lg shadow-lg">
                 <svg
-                  className="w-8 h-8 text-indigo-600"
+                  width="16"
+                  height="16"
+                  className="text-indigo-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -83,7 +85,9 @@ export default function AdminLogin() {
               <div className="flex items-center space-x-3">
                 <div className="bg-indigo-600 p-2 rounded-lg shadow-lg">
                   <svg
-                    className="w-8 h-8 text-white"
+                    width="16"
+                    height="16"
+                    className="text-white"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -117,7 +121,9 @@ export default function AdminLogin() {
                   <div className="mt-1 relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="h-5 w-5 text-gray-400"
+                        width="16"
+                        height="16"
+                        className="text-gray-400"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
@@ -147,7 +153,9 @@ export default function AdminLogin() {
                   <div className="mt-1 relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="h-5 w-5 text-gray-400"
+                        width="16"
+                        height="16"
+                        className="text-gray-400"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
@@ -178,7 +186,9 @@ export default function AdminLogin() {
                     <div className="flex">
                       <div className="flex-shrink-0">
                         <svg
-                          className="h-5 w-5 text-red-400"
+                          width="16"
+                          height="16"
+                          className="text-red-400"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
                           fill="currentColor"
@@ -206,7 +216,9 @@ export default function AdminLogin() {
                     {loading ? (
                       <div className="flex items-center">
                         <svg
-                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          width="16"
+                          height="16"
+                          className="animate-spin -ml-1 mr-3 text-white"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -240,7 +252,9 @@ export default function AdminLogin() {
                   className="inline-flex items-center text-sm text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out"
                 >
                   <svg
-                    className="-ml-1 mr-2 h-5 w-5"
+                    width="16"
+                    height="16"
+                    className="-ml-1 mr-2"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
