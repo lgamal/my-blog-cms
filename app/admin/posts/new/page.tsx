@@ -83,211 +83,64 @@ export default function NewPost() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <button
-                onClick={() => router.back()}
-                className="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  className="-ml-1 mr-2 text-gray-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                Back
-              </button>
-              <h1 className="ml-4 text-xl font-semibold text-gray-900">New Post</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-purple-500 to-pink-400 py-12">
+      <div className="w-full max-w-2xl mx-auto p-8 bg-white/90 rounded-3xl shadow-2xl">
+        <nav className="flex items-center justify-between mb-8">
+          <div className="flex items-center space-x-3">
+            <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-2 rounded-lg shadow-lg">
+              <svg width="16" height="16" className="text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
             </div>
-            <div className="flex items-center space-x-4">
-              <button
-                type="button"
-                onClick={() => router.back()}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                form="post-form"
-                disabled={loading}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? (
-                  <div className="flex items-center">
-                    <svg
-                      width="16"
-                      height="16"
-                      className="animate-spin -ml-1 mr-2 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                    Creating...
-                  </div>
-                ) : (
-                  "Create Post"
-                )}
-              </button>
+            <span className="text-2xl font-extrabold text-gray-900 tracking-tight">New Post</span>
+          </div>
+          <a href="/admin" className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-200">
+            <svg width="16" height="16" className="mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Dashboard
+          </a>
+        </nav>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">Create a New Blog Post</h2>
+        <p className="mb-8 text-base text-gray-600 text-center">Fill out the form below to publish a new post to your blog.</p>
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <input id="title" name="title" type="text" required className="block w-full px-4 py-3 border border-blue-200 rounded-xl shadow-sm placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-gray-900 bg-white/80 text-base transition duration-150 ease-in-out" placeholder="Enter post title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
+          </div>
+          <div>
+            <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 mb-1">Excerpt</label>
+            <textarea id="excerpt" name="excerpt" rows={2} className="block w-full px-4 py-3 border border-blue-200 rounded-xl shadow-sm placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent text-gray-900 bg-white/80 text-base transition duration-150 ease-in-out" placeholder="Enter a short excerpt" value={formData.excerpt} onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })} />
+          </div>
+          <div>
+            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+            <textarea id="content" name="content" rows={6} required className="block w-full px-4 py-3 border border-blue-200 rounded-xl shadow-sm placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent text-gray-900 bg-white/80 text-base transition duration-150 ease-in-out" placeholder="Write your post content here..." value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} />
+          </div>
+          <div className="flex flex-col md:flex-row md:space-x-4">
+            <div className="flex-1 mb-4 md:mb-0">
+              <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-1">Tags</label>
+              <input id="tags" name="tags" type="text" className="block w-full px-4 py-3 border border-blue-200 rounded-xl shadow-sm placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-gray-900 bg-white/80 text-base transition duration-150 ease-in-out" placeholder="e.g. tech, coding" value={formData.tags} onChange={(e) => setFormData({ ...formData, tags: e.target.value })} />
+            </div>
+            <div className="flex-1">
+              <label htmlFor="featuredImage" className="block text-sm font-medium text-gray-700 mb-1">Featured Image URL</label>
+              <input id="featuredImage" name="featuredImage" type="text" className="block w-full px-4 py-3 border border-blue-200 rounded-xl shadow-sm placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent text-gray-900 bg-white/80 text-base transition duration-150 ease-in-out" placeholder="Paste image URL" value={formData.featuredImage} onChange={(e) => setFormData({ ...formData, featuredImage: e.target.value })} />
             </div>
           </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <main className="max-w-4xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <form id="post-form" onSubmit={handleSubmit} className="space-y-6">
-          <div className="bg-white shadow rounded-lg overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
-              <h2 className="text-lg font-medium text-gray-900">Post Details</h2>
-              <p className="mt-1 text-sm text-gray-500">
-                Fill in the details below to create your new post.
-              </p>
-            </div>
-
-            <div className="px-6 py-4 space-y-6">
-              {/* Title */}
-              <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                  Title
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="text"
-                    id="title"
-                    required
-                    className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-150 ease-in-out"
-                    placeholder="Enter post title"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  />
-                </div>
-              </div>
-
-              {/* Excerpt */}
-              <div>
-                <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700">
-                  Excerpt
-                </label>
-                <div className="mt-1">
-                  <textarea
-                    id="excerpt"
-                    rows={3}
-                    className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-150 ease-in-out"
-                    placeholder="Enter a brief excerpt for your post"
-                    value={formData.excerpt}
-                    onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                  />
-                </div>
-                <p className="mt-2 text-sm text-gray-500">
-                  A short summary of your post that will be displayed in post listings.
-                </p>
-              </div>
-
-              {/* Content */}
-              <div>
-                <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-                  Content
-                </label>
-                <div className="mt-1">
-                  <textarea
-                    id="content"
-                    required
-                    rows={15}
-                    className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-150 ease-in-out font-mono"
-                    placeholder="Write your post content here (Markdown supported)"
-                    value={formData.content}
-                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  />
-                </div>
-                <p className="mt-2 text-sm text-gray-500">
-                  You can use Markdown to format your content.
-                </p>
-              </div>
-
-              {/* Tags */}
-              <div>
-                <label htmlFor="tags" className="block text-sm font-medium text-gray-700">
-                  Tags
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="text"
-                    id="tags"
-                    className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-150 ease-in-out"
-                    placeholder="react, nextjs, tutorial"
-                    value={formData.tags}
-                    onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                  />
-                </div>
-                <p className="mt-2 text-sm text-gray-500">
-                  Separate tags with commas.
-                </p>
-              </div>
-
-              {/* Featured Image */}
-              <div>
-                <label htmlFor="featuredImage" className="block text-sm font-medium text-gray-700">
-                  Featured Image URL
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="url"
-                    id="featuredImage"
-                    className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-150 ease-in-out"
-                    placeholder="https://example.com/image.jpg"
-                    value={formData.featuredImage}
-                    onChange={(e) => setFormData({ ...formData, featuredImage: e.target.value })}
-                  />
-                </div>
-                <p className="mt-2 text-sm text-gray-500">
-                  Enter the URL of the image you want to use as the featured image.
-                </p>
-              </div>
-
-              {/* Publish Status */}
+          <button type="submit" disabled={loading} className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-base font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
+            {loading ? (
               <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="published"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded transition duration-150 ease-in-out"
-                  checked={formData.published}
-                  onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
-                />
-                <label htmlFor="published" className="ml-2 block text-sm text-gray-900">
-                  Publish immediately
-                </label>
+                <svg width="16" height="16" className="animate-spin -ml-1 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+                Publishing...
               </div>
-            </div>
-          </div>
+            ) : (
+              "Publish Post"
+            )}
+          </button>
         </form>
-      </main>
+      </div>
     </div>
   )
 }
