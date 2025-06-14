@@ -76,82 +76,92 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-500 via-purple-500 to-pink-400">
-      <div className="w-full max-w-5xl mx-auto p-8 bg-white/90 rounded-3xl shadow-2xl mt-8 mb-8">
-        {/* Modern Navigation */}
-        <nav className="flex flex-col md:flex-row md:justify-between md:items-center mb-8">
-          <div className="flex items-center space-x-3 mb-4 md:mb-0">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-2 rounded-lg shadow-lg">
-              <FileText size={16} className="text-white" />
+    <div className="min-h-screen bg-gray-100">
+      {/* Modern Navigation */}
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <div className="flex-shrink-0 flex items-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+                  <FileText size={16} className="text-white" />
+                </div>
+                <span className="ml-3 text-xl font-semibold text-gray-900">BlogAdmin</span>
+              </div>
             </div>
-            <span className="text-3xl font-extrabold text-gray-900 tracking-tight">BlogAdmin</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="relative">
-              <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400" />
-              <input
-                type="text"
-                placeholder="Search posts..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 bg-white/80 border border-blue-200 rounded-xl text-gray-900 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent w-64 text-base shadow-sm"
-              />
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search posts..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64 bg-gray-50"
+                />
+              </div>
+              <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                <Bell size={16} />
+              </button>
+              <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                <Settings size={16} />
+              </button>
+              <Link
+                href="/admin/posts/new"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                <Plus size={16} className="mr-2" />
+                New Post
+              </Link>
+              <Link
+                href="/"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                <Home size={16} className="mr-2" />
+                View Site
+              </Link>
             </div>
-            <button className="p-2 text-blue-400 hover:text-white hover:bg-blue-400/20 rounded-lg transition-colors">
-              <Bell size={16} />
-            </button>
-            <button className="p-2 text-purple-400 hover:text-white hover:bg-purple-400/20 rounded-lg transition-colors">
-              <Settings size={16} />
-            </button>
-            <Link
-              href="/admin/posts/new"
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-200"
-            >
-              <Plus size={16} className="mr-2" />
-              New Post
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex items-center px-4 py-2 bg-white/80 text-blue-600 font-semibold rounded-xl shadow hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-200 border border-blue-200"
-            >
-              <Home size={16} className="mr-2" />
-              View Site
-            </Link>
           </div>
-        </nav>
-        {/* Header Section */}
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Content Management</h1>
-          <p className="text-lg text-gray-600">Manage your blog posts and content from here.</p>
         </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="px-4 sm:px-0 mb-8">
+          <h1 className="text-2xl font-bold text-gray-900">Content Management</h1>
+          <p className="mt-1 text-sm text-gray-500">Manage your blog posts and content from here.</p>
+        </div>
+
         {/* Posts Container */}
-        <div className="bg-gradient-to-br from-white/80 to-blue-100 rounded-2xl border border-blue-200 overflow-hidden shadow-xl">
-          <div className="px-6 py-4 border-b border-blue-200 bg-gradient-to-r from-white/80 to-purple-100">
+        <div className="bg-white shadow rounded-2xl overflow-hidden">
+          <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">All Posts</h2>
-              <span className="px-3 py-1 text-base font-semibold text-blue-700 bg-blue-200/60 rounded-full border border-blue-300">
+              <h2 className="text-lg font-medium text-gray-900">All Posts</h2>
+              <span className="px-3 py-1 text-sm font-medium text-blue-700 bg-blue-100 rounded-full">
                 {filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"}
                 {searchTerm && " found"}
               </span>
             </div>
           </div>
+
           {filteredPosts.length === 0 ? (
-            <div className="px-6 py-16 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <FileText size={16} className="text-blue-400" />
+            <div className="px-4 py-12 text-center">
+              <div className="mx-auto w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <FileText size={16} className="text-gray-400" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
                 {searchTerm ? "No posts found" : "No posts yet"}
               </h3>
-              <p className="text-gray-500 mb-6 max-w-sm mx-auto">
+              <p className="text-sm text-gray-500 mb-6 max-w-sm mx-auto">
                 {searchTerm 
-                  ? `No posts match "${searchTerm}". Try adjusting your search.`
+                  ? `No posts match \"${searchTerm}\". Try adjusting your search.`
                   : "Get started by creating your first blog post."}
               </p>
               {!searchTerm && (
                 <Link
                   href="/admin/posts/new"
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-200"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   <Plus size={16} className="mr-2" />
                   Create Your First Post
@@ -159,11 +169,11 @@ export default function AdminDashboard() {
               )}
             </div>
           ) : (
-            <div className="divide-y divide-blue-200">
+            <div className="divide-y divide-gray-200">
               {filteredPosts.map((post, index) => (
                 <div
                   key={post.id}
-                  className="px-6 py-6 hover:bg-blue-50 transition-all duration-200 group"
+                  className="px-4 py-4 hover:bg-gray-50 transition-colors"
                   style={{
                     animationDelay: `${index * 50}ms`,
                     animation: 'fadeInUp 0.5s ease-out forwards'
@@ -171,28 +181,25 @@ export default function AdminDashboard() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex-1 min-w-0 pr-6">
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">
                         {post.title}
                       </h3>
-                      <div className="flex flex-wrap items-center gap-4 text-base text-gray-600">
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
                         <span className="flex items-center">
-                          <User size={16} className="mr-1.5 text-blue-400" />
+                          <User size={16} className="mr-1.5 text-gray-400" />
                           {post.author.name}
                         </span>
                         <span className="flex items-center">
-                          <Calendar size={16} className="mr-1.5 text-purple-400" />
+                          <Calendar size={16} className="mr-1.5 text-gray-400" />
                           {format(new Date(post.createdAt), "MMM d, yyyy")}
                         </span>
                         <span
-                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                             post.published
-                              ? "bg-green-200 text-green-800 border border-green-300"
-                              : "bg-yellow-200 text-yellow-800 border border-yellow-300"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-yellow-100 text-yellow-800"
                           }`}
                         >
-                          <div className={`w-2 h-2 rounded-full mr-2 ${
-                            post.published ? "bg-green-400" : "bg-yellow-400"
-                          }`}></div>
                           {post.published ? "Published" : "Draft"}
                         </span>
                       </div>
@@ -200,14 +207,14 @@ export default function AdminDashboard() {
                     <div className="flex items-center space-x-3">
                       <Link
                         href={`/admin/posts/${post.id}/edit`}
-                        className="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-xl shadow hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-200 border border-blue-200 group/btn"
+                        className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >
-                        <Edit3 size={16} className="mr-2 group-hover/btn:text-blue-200" />
+                        <Edit3 size={16} className="mr-2" />
                         Edit
                       </Link>
                       <Link
                         href={`/blog/${post.slug}`}
-                        className="inline-flex items-center px-3 py-2 bg-white/80 text-blue-600 font-semibold rounded-xl shadow hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-200 border border-blue-200"
+                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                       >
                         <Eye size={16} className="mr-2" />
                         View
@@ -219,7 +226,8 @@ export default function AdminDashboard() {
             </div>
           )}
         </div>
-      </div>
+      </main>
+
       <style jsx>{`
         @keyframes fadeInUp {
           from {
@@ -230,9 +238,6 @@ export default function AdminDashboard() {
             opacity: 1;
             transform: translateY(0);
           }
-        }
-        .animation-delay-75 {
-          animation-delay: 75ms;
         }
       `}</style>
     </div>
